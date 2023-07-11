@@ -1,0 +1,36 @@
+# Ignore '.vscode' folder
+/.vscode/*
+
+# Ignore '.idea' (PHPStorm) folder
+/.idea/*
+
+# Ignore any file/folder starting with '._'
+*._*
+*/._*
+
+# Ignore 'vendor' folder
+/vendor/*
+
+# Ignores file containing sensible parameters
+*/params.local.php
+*/params.hosted.php
+
+# Ignores any uploaded file inside 'upload' folder
+/upload/*
+
+# Ignores log files
+/configs/logs/*
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
