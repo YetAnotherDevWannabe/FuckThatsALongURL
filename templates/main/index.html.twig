@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MainController!{% endblock %}
+{% block title %}Make it shorter !{% endblock %}
+
+{% block css %}{% endblock %}
 
 {% block body %}
 <style>
@@ -9,12 +11,61 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>Hello there! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/WebDev/www/FuckThatsALongURL/src/Controller/MainController.php'|file_link(0) }}">src/Controller/MainController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/WebDev/www/FuckThatsALongURL/templates/main/index.html.twig'|file_link(0) }}">templates/main/index.html.twig</a></code></li>
-    </ul>
+    Shorten any URL here:
+    
+    <form id="form" method="POST" action="{{ path("api") }}">
+        <input type="search" id="original_url" name="o" placeholder="https://www.youtube.com">
+        <input type="submit" value="Shorten" id="send_form">
+    </form>
+
+    <div>
+        <p id="result" style="visibility: hidden"> <a id="link" href="{{ url('main') }}r/">{{ url('main') }}r/<em id="rtext"></em></a></p>
+    </div>
+
 </div>
+{% endblock %}
+
+{% block js %}
+<script>
+function startAJAX() {
+    let mainPage = "{{ url('main') }}r/";
+    let original = 'o=' + document.querySelector('#original_url').value;
+
+    const url = "{{ url('api') }}";
+    let xhr = new XMLHttpRequest();
+
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded; charset=UTF-8');
+    xhr.send(original);
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+            if (xhr.status == 200) {
+                let jsonData = JSON.parse(xhr.responseText);
+                document.querySelector("#result").style.visibility = 'visible';
+                document.querySelector("#rtext").innerHTML = jsonData.short;
+                document.querySelector("#link").href = mainPage + jsonData.short;
+            } else {
+                document.querySelector("#result").style.visibility = 'visible';
+                document.querySelector("#rtext").innerHTML = xhr.responseText;
+            }
+        }
+    };
+}
+
+// Add an event listener on the button click
+let send_form = document.querySelector("#send_form");
+send_form.addEventListener("click", formSend, false);
+
+// Then prevent sending on event
+function formSend(e) {
+    e.preventDefault();
+
+    // Start AJAX call
+    startAJAX();
+}
+
+</script>
 {% endblock %}
