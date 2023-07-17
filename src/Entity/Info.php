@@ -17,10 +17,10 @@ class Info
     #[ORM\JoinColumn(nullable: false)]
     private ?Url $url = null;
 
-    #[ORM\Column(length: 15)]
+    #[ORM\Column(length: 20)]
     private ?string $time = null;
 
-    #[ORM\Column(length: 15)]
+    #[ORM\Column(length: 45)]
     private ?string $ip = null;
 
     public function getId(): ?int
