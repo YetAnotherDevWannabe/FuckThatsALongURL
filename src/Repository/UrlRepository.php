@@ -63,4 +63,24 @@ class UrlRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    public function findOneByOriginal($value): ?Url
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.original = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
+    public function findOneByShort($value): ?Url
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.short = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }
