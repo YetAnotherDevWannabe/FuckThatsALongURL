@@ -62,7 +62,7 @@ class ApiController extends AbstractController
                 $url->setOriginal($original);
                 $url->setShort($short);
 
-                // Save Url orbject in DB
+                // Save Url object in DB
                 $em->persist($url);
                 $em->flush();
 
